@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Button, View, Text } from 'react-native';
+import { Button, View, Text, Alert, ActivityIndicator } from 'react-native';
 import { observer } from 'mobx-react-lite';
 import { Modalize } from 'react-native-modalize';
 
 // import { useNavigation, useRoute } from '@react-navigation/core';
-import eventsStore from '../store/EventsStore';
+import eventsStore, { IMarkedData } from '../store/EventsStore';
 
 import { DateData, LocaleConfig, CalendarList } from 'react-native-calendars';
 
@@ -62,12 +62,16 @@ function Main({ navigation }: Props) {
     eventsStore.fetchEvents();
   }, []);
 
-  const [currentData, setCurrentData] = useState<any>();
+  const [currentData, setCurrentData] = useState<IMarkedData>();
+  // const currentData = useRef<IMarkedData>();
 
   const onDayPress = (day: DateData) => {
     if (eventsStore.markedDates[day.dateString]) {
+      // Alert.alert('modalizeRef 15');
       setCurrentData(eventsStore.markedDates[day.dateString]);
-      modalizeRef.current?.open();
+      setTimeout(() => {
+        modalizeRef.current?.open();
+      }, 1000);
     }
   };
 
@@ -81,8 +85,8 @@ function Main({ navigation }: Props) {
           style={{
             backgroundColor: '#FF6D01',
             textAlign: 'center',
+            padding: 21,
             fontSize: 18,
-            padding: 12,
           }}
         >
           Календарь мероприятий #ДОБРОпомощи
@@ -120,19 +124,50 @@ function Main({ navigation }: Props) {
           style={{
             height: 300,
             width: '100%',
-            padding: 12,
+            padding: 18,
             display: 'flex',
             alignItems: 'center',
             flexDirection: 'column',
           }}
         >
-          <Text> {currentData?.name}</Text>
+          <Text
+            style={{ fontFamily: 'Georgia', fontSize: 24, textAlign: 'center' }}
+          >
+            {currentData?.name}
+          </Text>
+          <Text
+            style={{
+              fontFamily: 'Georgia',
+              textAlign: 'center',
+              marginTop: 4,
+              marginBottom: 21,
+              fontSize: 18,
+            }}
+          >
+            {currentData?.displayDate}
+          </Text>
           <Button
             title="Подробнее"
+            color="#2196F3"
             onPress={() => navigation.navigate('Details', { currentData })}
           />
         </View>
       </Modalize>
+      <View
+        style={{
+          display: eventsStore.isFetching ? 'flex' : 'none',
+          zIndex: 999,
+          position: 'absolute',
+          backgroundColor: 'white',
+          width: '100%',
+          height: '100%',
+          justifyContent: 'center',
+          alignItems: 'center',
+          paddingBottom: '50%',
+        }}
+      >
+        <ActivityIndicator size={50} animating={true} />
+      </View>
     </>
   );
 }

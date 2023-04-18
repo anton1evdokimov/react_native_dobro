@@ -3,12 +3,20 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import moment from 'moment';
 import { EEventsType, IEventData } from '../types';
+import { Alert } from 'react-native/types';
 
-const colorMap = {
+const colorMap: { [key: string]: string } = {
   [EEventsType.socialEvents]: '#fbbc06', // Социальные мероприятия
   [EEventsType.charityEvents]: '#d5a6bd', // Благотворительные мероприятия
   [EEventsType.socialTrips]: '#ffe598', // Социальные поездки
   [EEventsType.socialFeeding]: '#e6febe', // Социальные кормления
+};
+
+const monthNameMap: { [key: number]: string } = {
+  [0]: 'января',
+  [1]: 'февраля',
+  [2]: 'марта',
+  [3]: 'апреля',
 };
 
 const CONTAINER_SIZE = 40;
@@ -28,10 +36,25 @@ const selectedStyle = {
   selectedTextColor: '#000',
 };
 
+export interface IMarkedDatas {
+  [key: string]: IMarkedData;
+}
+export interface IMarkedData {
+  day: string;
+  name: string;
+  displayDate: string;
+  selected: boolean;
+  customStyles: any;
+  description: string;
+  selectedColor: string;
+  selectedTextColor: string;
+}
+
 class EventsStore {
   private eventsCollection = 'events';
   events = {};
-  markedDates: any = {};
+  markedDates: IMarkedDatas = {};
+  isFetching = true;
 
   constructor() {
     makeAutoObservable(this);
@@ -42,24 +65,27 @@ class EventsStore {
       collection(db, this.eventsCollection) as any
     );
 
-    const markedData: any = {};
+    const markedData: IMarkedDatas = {};
 
     querySnapshot.forEach((doc) => {
       const { date, description, type, name, status, ...rest } = doc.data();
 
-      const day = moment(date.toDate()).format('yyyy-MM-DD');
+      const d: Date = date.toDate();
+      const day = moment(d).format('yyyy-MM-DD');
 
       markedData[day] = {
         ...selectedStyle,
         day,
         name,
         description,
+        displayDate: `${d.getDay()} ${monthNameMap[d.getMonth()]}`,
         selectedColor: colorMap[type],
       };
     });
 
     runInAction(() => {
       this.markedDates = markedData;
+      this.isFetching = false;
     });
   }
 }

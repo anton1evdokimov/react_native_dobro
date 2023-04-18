@@ -1,15 +1,7 @@
-import { StyleSheet } from 'react-native';
+import React from 'react';
+import { StatusBar, StyleSheet } from 'react-native';
 import Main from './src/screens/Main';
-import {
-  NavigationContainer,
-  NavigationAction,
-  NavigationContainerRef,
-  TabNavigationState,
-  Descriptor,
-  ParamListBase,
-  NavigationProp,
-  RouteProp,
-} from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Details from './src/screens/Details';
 
@@ -17,12 +9,15 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Main" component={Main} />
-        <Stack.Screen name="Details" component={Details} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <>
+      <StatusBar />
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Main" component={Main} />
+          <Stack.Screen name="Details" component={Details} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </>
   );
 }
 
@@ -34,11 +29,3 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
 });
-
-
-
-
- // <View style={styles.container}>
-    //   <Text>Open up App.tsx to start working on your app!</Text>
-    //   <StatusBar style="auto" />
-    // </View>
