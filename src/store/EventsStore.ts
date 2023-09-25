@@ -2,14 +2,14 @@ import { makeAutoObservable, runInAction } from 'mobx';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import moment from 'moment';
-import { EEventsType, IEventData } from '../types';
-import { Alert } from 'react-native/types';
+import { EEventsType, IEventData, IMarkedDatas } from '../interfaces';
 
 const colorMap: { [key: string]: string } = {
   [EEventsType.socialEvents]: '#fbbc06', // Социальные мероприятия
   [EEventsType.charityEvents]: '#d5a6bd', // Благотворительные мероприятия
   [EEventsType.socialTrips]: '#ffe598', // Социальные поездки
-  [EEventsType.socialFeeding]: '#e6febe', // Социальные кормления
+  [EEventsType.socialFeeding]: '#f2cda3', // Социальные кормления
+  [EEventsType.sportEvents]: '#bed6ae', // sportEvents
 };
 
 const monthNameMap: { [key: number]: string } = {
@@ -17,6 +17,14 @@ const monthNameMap: { [key: number]: string } = {
   [1]: 'февраля',
   [2]: 'марта',
   [3]: 'апреля',
+  [4]: 'мая',
+  [5]: 'июня',
+  [6]: 'июля',
+  [7]: 'августа',
+  [8]: 'сентября',
+  [9]: 'октября',
+  [10]: 'ноября',
+  [11]: 'декабря',
 };
 
 const CONTAINER_SIZE = 40;
@@ -36,20 +44,6 @@ const selectedStyle = {
   selectedTextColor: '#000',
 };
 
-export interface IMarkedDatas {
-  [key: string]: IMarkedData;
-}
-export interface IMarkedData {
-  day: string;
-  name: string;
-  displayDate: string;
-  selected: boolean;
-  customStyles: any;
-  description: string;
-  selectedColor: string;
-  selectedTextColor: string;
-}
-
 class EventsStore {
   private eventsCollection = 'events';
   events = {};
@@ -68,18 +62,22 @@ class EventsStore {
     const markedData: IMarkedDatas = {};
 
     querySnapshot.forEach((doc) => {
-      const { date, description, type, name, status, ...rest } = doc.data();
+      const { date, description, type, name, status, responsible } = doc.data();
 
       const d: Date = date.toDate();
       const day = moment(d).format('yyyy-MM-DD');
+      const displayDate = `${d.getDate()} ${monthNameMap[d.getMonth()]}`;
+      // const d1 = 'Мастер-класс по Мезенской росписи/ Ведущая мастер-класса: Титова Анна/ Стоимость: 250 рублей/ Место проведения: Храм св.мч. Флора и Лавра (ул. Дубининская, д.9, с.1)'
 
       markedData[day] = {
         ...selectedStyle,
         day,
         name,
-        description,
-        displayDate: `${d.getDay()} ${monthNameMap[d.getMonth()]}`,
+        type,
+        description: [description],
+        displayDate,
         selectedColor: colorMap[type],
+        responsible,
       };
     });
 

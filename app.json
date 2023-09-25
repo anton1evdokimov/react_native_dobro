@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "ДОБРОпомощь",
+    "name": "ДоброПомощь",
     "slug": "dobropomosh",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/dobro_circle.png",
+    "icon": "./assets/dobro.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/dobro.png",
@@ -19,13 +19,13 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/dobro_circle.png",
+        "foregroundImage": "./assets/dobro_icons_round.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.anton1evdokimov.dobropomosh"
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "favicon": "./assets/logo_round.png"
     },
     "extra": {
       "eas": {

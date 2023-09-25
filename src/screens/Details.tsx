@@ -3,23 +3,32 @@ import { Image, View, Text, Linking, TouchableOpacity } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useRoute } from '@react-navigation/core';
-import { IMarkedData } from '../store/EventsStore';
+import { IMarkedData } from '../interfaces';
 
 function Details() {
   const route = useRoute<any>();
-  const data: IMarkedData = route.params.currentData;
+  const { description, displayDate, name, responsible }: IMarkedData =
+    route.params.currentData;
 
-  const message = `Добрый день! Прошу записать меня на "${data.name}" (${data.displayDate})`;
+  const message = `Добрый день! Прошу записать меня на "${name}" (${displayDate})`;
   const onPressWhatsapp = () => {
-    Linking.openURL(`whatsapp://send?text=${message}&phone=79686821493'`);
+    try {
+      Linking.openURL(`whatsapp://send?text=${message}&phone=79686821493'`);
+    } catch {
+      alert('Ошибка! При открытии Whatsapp!');
+    }
   };
   // const url = 'http://t.me/[bot-address]';
   const onPressTG = () => {
-    Linking.openURL(`tg://msg?text=${message}&to=@ZenyaZhenya`);
+    Linking.openURL(
+      `t.me/@ZenyaZhenya/${Date.now()}?single&comment=${message}`
+    );
+
+    //msg?text=${message}&to=@ZenyaZhenya`); //@ZenyaZhenya
   };
   const onPressEmail = () => {
     Linking.openURL(
-      `mailto://msg?subject=Запись на ${data.displayDate}&body=${message}&to=anton@yandex.ru`
+      `mailto://msg?subject=Запись на ${displayDate}&body=${message}&to=anton@yandex.ru`
     );
   };
 
@@ -46,18 +55,26 @@ function Details() {
             width: '50%',
             height: '100%',
             resizeMode: 'contain',
-            borderRadius: 110,
           }}
           source={require('../../assets/dobro.png')}
         />
       </View>
-      <Text style={{ paddingBottom: 12, fontSize: 24, textAlign: 'center' }}>
-        {data.name}
-      </Text>
-      <Text style={{ paddingBottom: 18 }}>{data.displayDate}</Text>
-      <Text style={{ paddingBottom: 18, fontSize: 14 }}>
-        {data.description}
-      </Text>
+      {/* <Text style={{ paddingBottom: 12, fontSize: 24, textAlign: 'center' }}>
+        {name}
+      </Text> */}
+      <Text style={{ paddingBottom: 18, fontSize: 24 }}>{displayDate}</Text>
+      <View style={{ paddingBottom: 18 }}>
+        {description.map((item) => (
+          <Text
+            style={{ textAlign: 'center', fontSize: 15, margin: 24 }}
+            key={item}
+          >
+            {'\t'}
+            {item.trim()}
+          </Text>
+        ))}
+      </View>
+      <Text style={{ paddingBottom: 12 }}>Ответственный: {responsible}</Text>
       <Text style={{ paddingBottom: 12 }}>Записаться на мероприятие:</Text>
       <View
         style={{

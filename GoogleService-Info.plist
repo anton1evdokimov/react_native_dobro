@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>1070712262125-0p3ejggdstorsc1rbdej4d1gp72v53au.apps.googleusercontent.com</string>
+	<string>53714878750-bl6tog2aqla4qb09fhbcu2g21bih5mr2.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.1070712262125-0p3ejggdstorsc1rbdej4d1gp72v53au</string>
+	<string>com.googleusercontent.apps.53714878750-bl6tog2aqla4qb09fhbcu2g21bih5mr2</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBFfXWyxCmlUhN69IV06G_LH5zJ_oMv118</string>
+	<string>AIzaSyCU5yaTx08L6zOp49ZaXhl8QLE6mw1Oorw</string>
 	<key>GCM_SENDER_ID</key>
-	<string>1070712262125</string>
+	<string>53714878750</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.dobro.welcome</string>
+	<string>com.moscow.dobro</string>
 	<key>PROJECT_ID</key>
-	<string>welcomehelp-f729b</string>
+	<string>dobropomosh-da973</string>
 	<key>STORAGE_BUCKET</key>
-	<string>welcomehelp-f729b.appspot.com</string>
+	<string>dobropomosh-da973.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:1070712262125:ios:3a176294e622d71ed7ebe4</string>
+	<string>1:53714878750:ios:f4d9f7edb9996bab5e090f</string>
 </dict>
 </plist>

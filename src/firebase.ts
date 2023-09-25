@@ -7,13 +7,14 @@ import { getFirestore } from 'firebase/firestore';
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: 'AIzaSyCIq1fwD3fMOcMz8AEO4f4jKUmvqrEhHjw',
-  authDomain: 'welcomehelp-f729b.firebaseapp.com',
-  projectId: 'welcomehelp-f729b',
-  storageBucket: 'welcomehelp-f729b.appspot.com',
-  messagingSenderId: '1070712262125',
-  appId: '1:1070712262125:web:299c0826efd04f82d7ebe4',
-  measurementId: 'G-22L0W2FH3D',
+  apiKey: "AIzaSyD-G57A611Uxct6s4eEAQA1gwg6vEtKfpM",
+  authDomain: "dobrohelp-cc47c.firebaseapp.com",
+  databaseURL: "https://dobrohelp-cc47c-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "dobrohelp-cc47c",
+  storageBucket: "dobrohelp-cc47c.appspot.com",
+  messagingSenderId: "784624103572",
+  appId: "1:784624103572:web:b2ee22c0911d84a1858481",
+  measurementId: "G-WSVK9FK2EB"
 };
 
 // Initialize Firebase

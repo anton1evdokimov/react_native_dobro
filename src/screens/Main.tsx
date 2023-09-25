@@ -4,9 +4,10 @@ import { observer } from 'mobx-react-lite';
 import { Modalize } from 'react-native-modalize';
 
 // import { useNavigation, useRoute } from '@react-navigation/core';
-import eventsStore, { IMarkedData } from '../store/EventsStore';
+import eventsStore from '../store/EventsStore';
 
 import { DateData, LocaleConfig, CalendarList } from 'react-native-calendars';
+import { IMarkedData } from '../interfaces';
 
 LocaleConfig.locales['ru'] = {
   monthNames: [
@@ -46,7 +47,7 @@ LocaleConfig.locales['ru'] = {
     'Суббота',
     'Воскресенье',
   ],
-  dayNamesShort: ['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вск'],
+  dayNamesShort: ['Вскр', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
   today: "Aujourd'hui",
 };
 LocaleConfig.defaultLocale = 'ru';
@@ -67,11 +68,10 @@ function Main({ navigation }: Props) {
 
   const onDayPress = (day: DateData) => {
     if (eventsStore.markedDates[day.dateString]) {
-      // Alert.alert('modalizeRef 15');
       setCurrentData(eventsStore.markedDates[day.dateString]);
       setTimeout(() => {
         modalizeRef.current?.open();
-      }, 1000);
+      }, 0);
     }
   };
 
@@ -140,6 +140,16 @@ function Main({ navigation }: Props) {
               fontFamily: 'Georgia',
               textAlign: 'center',
               marginTop: 4,
+              fontSize: 18,
+            }}
+          >
+            ({currentData?.type})
+          </Text>
+          <Text
+            style={{
+              fontFamily: 'Georgia',
+              textAlign: 'center',
+              marginTop: 4,
               marginBottom: 21,
               fontSize: 18,
             }}
@@ -147,7 +157,7 @@ function Main({ navigation }: Props) {
             {currentData?.displayDate}
           </Text>
           <Button
-            title="Подробнее"
+            title="Подробнее &rarr;"
             color="#2196F3"
             onPress={() => navigation.navigate('Details', { currentData })}
           />
