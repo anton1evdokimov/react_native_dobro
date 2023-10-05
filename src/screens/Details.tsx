@@ -10,7 +10,7 @@ function Details() {
   const { description, displayDate, name, responsible }: IMarkedData =
     route.params.currentData;
 
-  const message = `Добрый день! Прошу записать меня на "${name}" (${displayDate})`;
+  const message = `Добрый день! Прошу записать меня на «${name}» (${displayDate})`;
   const onPressWhatsapp = () => {
     try {
       Linking.openURL(`whatsapp://send?text=${message}&phone=79686821493'`);
@@ -18,7 +18,6 @@ function Details() {
       alert('Ошибка! При открытии Whatsapp!');
     }
   };
-  // const url = 'http://t.me/[bot-address]';
   const onPressTG = () => {
     Linking.openURL(
       `t.me/@ZenyaZhenya/${Date.now()}?single&comment=${message}`
@@ -26,10 +25,15 @@ function Details() {
 
     //msg?text=${message}&to=@ZenyaZhenya`); //@ZenyaZhenya
   };
+
+  const email = `mailto:anton1evdokimov@yandex.ru?subject=Запись на ${displayDate}&body=${message}`;
   const onPressEmail = () => {
-    Linking.openURL(
-      `mailto://msg?subject=Запись на ${displayDate}&body=${message}&to=anton@yandex.ru`
-    );
+    console.log('onPressEmail', email);
+    Linking.openURL(email);
+  };
+
+  const onPressSms = () => {
+    Linking.openURL(`sms://+79046357048?body=${message}`);
   };
 
   return (
@@ -90,14 +94,19 @@ function Details() {
             <Ionicons name="logo-whatsapp" size={39} color="green" />
           </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={onPressTG} style={{ paddingBottom: 15 }}>
+        {/* <TouchableOpacity onPress={onPressTG} style={{ paddingBottom: 15 }}>
           <Text>
             <FontAwesome name="telegram" size={39} color="#3bb6f2" />
           </Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <TouchableOpacity onPress={onPressEmail} style={{ paddingBottom: 15 }}>
           <Text>
             <Ionicons name="mail" size={39} color="#edb951dd" />
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={onPressSms} style={{ paddingBottom: 15 }}>
+          <Text>
+            <FontAwesome name="comment-o" size={39} color="#3bb6f2" />
           </Text>
         </TouchableOpacity>
       </View>

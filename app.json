@@ -4,22 +4,20 @@
     "slug": "dobropomosh",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/dobro.png",
+    "icon": "./assets/logo_round.png",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/dobro.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": [
-      "**/*"
-    ],
+    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/dobro_icons_round.png",
+        "foregroundImage": "./assets/logo_round.png",
         "backgroundColor": "#ffffff"
       },
       "package": "com.anton1evdokimov.dobropomosh"
